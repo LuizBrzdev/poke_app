@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 
-import '../../../../core/helpers/HexToColor/color_by_string.dart';
+import '../../../../shared/utils/HexToColor/color_by_string.dart';
 
 class CSearchForm extends StatelessWidget {
   const CSearchForm({super.key});

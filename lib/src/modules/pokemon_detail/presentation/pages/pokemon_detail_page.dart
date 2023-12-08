@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:poke_app/src/shared/components/buttons/c_navigation_button.dart';
 
-import '../../../../core/helpers/HexToColor/color_by_string.dart';
+import '../../../../shared/utils/HexToColor/color_by_string.dart';
 import '../../../../core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import '../../../../shared/components/animated/c_animated_app_bar_widget.dart';
 import '../../../../shared/components/expandable_page_view/expandable_page_view.dart';

@@ -1,4 +1,4 @@
-import 'package:poke_app/src/core/helpers/HexToColor/color_by_string.dart';
+import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 
 class ColorByPokemonType {
   static backGroundColor({required String type}) {

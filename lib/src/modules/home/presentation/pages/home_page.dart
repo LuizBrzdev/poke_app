@@ -7,7 +7,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:poke_app/src/core/helpers/HexToColor/color_by_string.dart';
+import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 import 'package:poke_app/src/core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import 'package:poke_app/src/modules/home/data/inject/home_inject.dart';
 import 'package:poke_app/src/modules/home/presentation/cubit/home_cubit.dart';
