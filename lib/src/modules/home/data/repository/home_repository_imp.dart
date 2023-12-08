@@ -9,8 +9,8 @@ class HomeRepositoryImp implements HomeRepository {
   HomeRepositoryImp(this._homeDataSource);
 
   @override
-  Future<PokemonBasicEntity?> fetchPokemonBasic() async {
-    final response = await _homeDataSource.fetchPokemonBasic();
+  Future<PokemonBasicEntity?> fetchPokemonsList() async {
+    final response = await _homeDataSource.fetchPokemonsList();
 
     if (response.statusCode == 200) {
       return PokemonBasicEntity.fromJson(response.data);

@@ -8,7 +8,7 @@ class HomeDataSource {
 
   HomeDataSource(this._httpService);
 
-  Future<HttpResponseImp> fetchPokemonBasic() async {
+  Future<HttpResponseImp> fetchPokemonsList() async {
     final response = await _httpService.get('${AppConstants.pokeApiUrl}/pokemon?limit=12&offset=0');
     return HttpResponseImp(response!);
   }

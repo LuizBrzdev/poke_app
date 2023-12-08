@@ -158,7 +158,7 @@ class HomePage extends StatelessWidget {
                       return InkWell(
                         onTap: () async {
                           await cubit.fetchListOfPokemonsByUrl();
-                          cubit.fetchListOfPokemons();
+                          cubit.fetchPokemonInfo();
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,

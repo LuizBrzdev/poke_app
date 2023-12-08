@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_info_entity.dart';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_list_entity.dart';
 
-import 'package:poke_app/src/modules/home/domain/usecase/fetch_pokemon_use_case.dart';
+import 'package:poke_app/src/modules/home/domain/usecases/fetch_pokemon_use_case.dart';
 
 part 'home_state.dart';
 
@@ -16,8 +16,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> initState() async {
-    await fetchPokemonBasic();
-    await fetchListOfPokemons();
+    await fetchPokemonsList();
+    await fetchPokemonInfo();
   }
 
   Future<void> fetchListOfPokemonsByUrl() async {
@@ -37,12 +37,12 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
-  Future<void> fetchPokemonBasic() async {
-    final response = await _fetchPokemonUseCase.fetchPokemonBasic();
+  Future<void> fetchPokemonsList() async {
+    final response = await _fetchPokemonUseCase.fetchPokemonsList();
     _pokemonBasicEntity = response!;
   }
 
-  Future<void> fetchListOfPokemons() async {
+  Future<void> fetchPokemonInfo() async {
     emit(
       state.copyWith(
           homeStatesStatus: HomeStatesStatus.loading, pokemonBasicEntity: _pokemonBasicEntity),

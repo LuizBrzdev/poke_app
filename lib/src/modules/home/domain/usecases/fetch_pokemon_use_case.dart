@@ -10,8 +10,8 @@ class FetchPokemonUseCase {
     required HomeRepository homeRepository,
   }) : _homeRepository = homeRepository;
 
-  Future<PokemonBasicEntity?> fetchPokemonBasic() async {
-    return _homeRepository.fetchPokemonBasic();
+  Future<PokemonBasicEntity?> fetchPokemonsList() async {
+    return _homeRepository.fetchPokemonsList();
   }
 
   Future<PokemonInfoEntity?> fetchPokemonInfo({required String pokemonName}) async {
@@ -24,7 +24,7 @@ class FetchPokemonUseCase {
 
   Future<List<PokemonInfoEntity>> fetchAllPokemonsOnScreen() async {
     List<PokemonInfoEntity> fetchedPokemonList = [];
-    final pokemonBasic = await fetchPokemonBasic();
+    final pokemonBasic = await fetchPokemonsList();
     for (PokemonResultsEntity pokemon in pokemonBasic!.results!) {
       final pokemonInfo = await fetchPokemonInfo(pokemonName: pokemon.name!);
       if (pokemonInfo.runtimeType == PokemonInfoEntity) {
