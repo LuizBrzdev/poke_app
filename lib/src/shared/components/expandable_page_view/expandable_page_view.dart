@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 class ExpandablePageView extends StatefulWidget {
   final List<Widget> children;
   final PageController? controller;
-  final ValueChanged<int> onPageChanged;
 
   const ExpandablePageView({
     Key? key,
     required this.children,
     this.controller,
-    required this.onPageChanged,
   }) : super(key: key);
 
   @override
@@ -19,7 +17,7 @@ class ExpandablePageView extends StatefulWidget {
 class ExpandablePageViewState extends State<ExpandablePageView> with TickerProviderStateMixin {
   late PageController _pageController;
   List<double> _heights = [0];
-  int _currentPage = 0;
+  final int _currentPage = 0;
 
   double get _currentHeight => _heights[_currentPage];
 
@@ -27,14 +25,20 @@ class ExpandablePageViewState extends State<ExpandablePageView> with TickerProvi
   void initState() {
     _heights = widget.children.map((e) => 0.0).toList();
     super.initState();
-    _pageController = widget.controller ?? PageController() //
-      ..addListener(() {
-        final newPage = _pageController.page!.round();
-        if (_currentPage != newPage) {
-          widget.onPageChanged(newPage);
-          setState(() => _currentPage = newPage);
-        }
-      });
+    _pageController = widget.controller ?? PageController()
+      ..addListener(
+        () {
+          // final newPage = _pageController.page!.round();
+
+          // if (_currentPage != newPage) {
+          //   //    widget.onPageChanged?(newPage);
+          //   setState(() {
+          //     _currentPage = newPage;
+          //     // Adiciona newPage a pageList
+          //   });
+          // }
+        },
+      );
   }
 
   @override
@@ -52,6 +56,7 @@ class ExpandablePageViewState extends State<ExpandablePageView> with TickerProvi
       builder: (context, value, child) => SizedBox(height: value, child: child),
       child: PageView(
         controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
         children: _sizeReportingChildren,
       ),
     );
@@ -63,7 +68,6 @@ class ExpandablePageViewState extends State<ExpandablePageView> with TickerProvi
         (index, child) => MapEntry(
           index,
           OverflowBox(
-            //needed, so that parent won't impose its constraints on the children, thus skewing the measurement results.
             minHeight: 0,
             maxHeight: double.infinity,
             alignment: Alignment.topCenter,

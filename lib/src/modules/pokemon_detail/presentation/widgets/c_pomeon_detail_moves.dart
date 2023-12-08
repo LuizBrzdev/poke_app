@@ -18,6 +18,7 @@ class CPomeonDetailMoves extends StatelessWidget {
         childAspectRatio: 16 / 9,
       ),
       physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.only(top: 8),
       itemCount: pokemonInfoModel.moves!.length,
       shrinkWrap: true,
       itemBuilder: (context, index) => Container(

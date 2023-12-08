@@ -31,7 +31,6 @@ class PokemonDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    final PageController pageController = PageController();
     // final PokemonDetailCubit cubit = GetIt.I<PokemonDetailCubit>();
 
     return Material(
@@ -93,7 +92,6 @@ class PokemonDetailPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 PokemonDetailTabBar(
                   pokemonInfoModel: pokemonInfoModel,
-                  pageController: pageController,
                 ),
                 const SizedBox(height: 40),
               ],
@@ -125,12 +123,10 @@ class PokemonDetailPage extends StatelessWidget {
 
 class PokemonDetailTabBar extends StatefulWidget {
   final PokemonInfoEntity pokemonInfoModel;
-  final PageController pageController;
 
   PokemonDetailTabBar({
     Key? key,
     required this.pokemonInfoModel,
-    required this.pageController,
   }) : super(key: key);
 
   @override
@@ -139,19 +135,17 @@ class PokemonDetailTabBar extends StatefulWidget {
 
 class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
+  late final TabController tabController;
+  late final PageController pageController;
 
-  void _addTabController() {
+  @override
+  void initState() {
     tabController = TabController(
       length: 4,
       vsync: this,
       animationDuration: const Duration(milliseconds: 400),
     );
-  }
-
-  @override
-  void initState() {
-    _addTabController();
+    pageController = PageController();
     super.initState();
   }
 
@@ -177,8 +171,13 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
           unselectedLabelColor: Colors.black.withOpacity(0.3),
           indicatorColor: Colors.transparent,
           splashBorderRadius: BorderRadius.circular(4),
-          onTap: (value) => widget.pageController
-              .animateToPage(value, duration: const Duration(seconds: 1), curve: Curves.easeIn),
+          onTap: (value) {
+            pageController.animateToPage(
+              value,
+              duration: const Duration(milliseconds: 1500),
+              curve: Curves.easeInOut,
+            );
+          },
           overlayColor: MaterialStateColor.resolveWith(
             (states) => ColorByPokemonType.backGroundColor(
                 type: widget.pokemonInfoModel.types![0].type.name),
@@ -192,13 +191,12 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
           ],
         ),
         ExpandablePageView(
-          controller: widget.pageController,
-          onPageChanged: (value) => tabController.index = value,
+          controller: pageController,
           children: [
             CPokemonDetailInfo(pokemonInfoModel: widget.pokemonInfoModel),
             CPomeonDetailMoves(pokemonInfoModel: widget.pokemonInfoModel),
             CPokemonDetailStats(pokemonInfoModel: widget.pokemonInfoModel),
-            CPokemonDetailAbilities(pokemonInfoModel: widget.pokemonInfoModel)
+            CPokemonDetailForms(pokemonInfoModel: widget.pokemonInfoModel)
           ],
         ),
       ],

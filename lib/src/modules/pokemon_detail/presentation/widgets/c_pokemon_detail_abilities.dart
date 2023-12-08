@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import '../../../home/domain/entities/pokemon_info_entity.dart';
 
-class CPokemonDetailAbilities extends StatelessWidget {
+class CPokemonDetailForms extends StatelessWidget {
   final PokemonInfoEntity pokemonInfoModel;
-  const CPokemonDetailAbilities({super.key, required this.pokemonInfoModel});
+  const CPokemonDetailForms({super.key, required this.pokemonInfoModel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class CPokemonDetailAbilities extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: pokemonInfoModel.abilities!.length,
       shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 8),
       itemBuilder: (context, index) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),

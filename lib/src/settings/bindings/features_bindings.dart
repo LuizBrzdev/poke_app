@@ -3,7 +3,7 @@ import 'package:poke_app/src/settings/bindings/features/pokemon_detail_bindings.
 
 class FeaturesBindings {
   static FeaturesBindings? _instance;
-  // Avoid self instance
+
   FeaturesBindings._();
   static FeaturesBindings get instance => _instance ??= FeaturesBindings._();
 

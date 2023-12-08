@@ -19,6 +19,7 @@ class CPokemonDetailStats extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: pokemonInfoModel.stats!.length,
       shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 8),
       itemBuilder: (context, index) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
