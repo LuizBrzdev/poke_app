@@ -17,7 +17,7 @@ class ExpandablePageView extends StatefulWidget {
 class ExpandablePageViewState extends State<ExpandablePageView> with TickerProviderStateMixin {
   late PageController _pageController;
   List<double> _heights = [0];
-  final int _currentPage = 0;
+  int _currentPage = 0;
 
   double get _currentHeight => _heights[_currentPage];
 
@@ -28,15 +28,15 @@ class ExpandablePageViewState extends State<ExpandablePageView> with TickerProvi
     _pageController = widget.controller ?? PageController()
       ..addListener(
         () {
-          // final newPage = _pageController.page!.round();
+          final newPage = _pageController.page!.round();
 
-          // if (_currentPage != newPage) {
-          //   //    widget.onPageChanged?(newPage);
-          //   setState(() {
-          //     _currentPage = newPage;
-          //     // Adiciona newPage a pageList
-          //   });
-          // }
+          if (_currentPage != newPage) {
+            //    widget.onPageChanged?(newPage);
+            setState(() {
+              _currentPage = newPage;
+              // Adiciona newPage a pageList
+            });
+          }
         },
       );
   }
