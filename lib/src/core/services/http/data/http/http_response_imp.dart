@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
-import '../../../domain/services/http/http_response.dart';
+import '../../domain/http_response.dart';
 
-class HttpResponseImp<T> implements HttpResponseAbstract {
+class HttpResponseImp<T> implements HttpResponseInterface {
   final Response<T> _response;
 
   HttpResponseImp(this._response);

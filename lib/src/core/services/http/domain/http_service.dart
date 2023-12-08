@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-abstract class HttpService {
+abstract class HttpServiceInterface {
   Future<Response<T>?> get<T>(
     String url, {
     bool checkStatusCode = true,

@@ -1,10 +1,10 @@
-import 'package:poke_app/src/core/data/services/http/http_response_imp.dart';
+import 'package:poke_app/src/core/services/http/data/http/http_response_imp.dart';
+import 'package:poke_app/src/core/services/http/domain/http_service.dart';
 
-import '../../../../core/domain/services/http/http_service.dart';
 import '../../../../settings/app_const.dart';
 
 class HomeDataSource {
-  final HttpService _httpService;
+  final HttpServiceInterface _httpService;
 
   HomeDataSource(this._httpService);
 

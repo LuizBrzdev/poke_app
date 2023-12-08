@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:poke_app/src/core/domain/services/http/http_service.dart';
+
+import 'package:poke_app/src/core/services/http/domain/http_service.dart';
 
 import 'http_interceptor_settings.dart';
 
-class HttpServiceImp implements HttpService {
+class HttpServiceImp implements HttpServiceInterface {
   late Dio? _dio;
 
   HttpServiceImp() {

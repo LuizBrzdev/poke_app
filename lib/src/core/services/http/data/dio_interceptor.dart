@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import '../../../domain/services/http/http_status_code.dart';
+
 import 'package:flutter/foundation.dart';
+
+import '../domain/http_status_code.dart';
 
 class AppInterceptors extends Interceptor {
   // final AuthController _auth;
