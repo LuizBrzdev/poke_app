@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 import 'package:poke_app/src/core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
-import 'package:poke_app/src/modules/home/data/inject/home_inject.dart';
 import 'package:poke_app/src/modules/home/presentation/cubit/home_cubit.dart';
 import 'package:poke_app/src/modules/home/presentation/widgets/c_search_form.dart';
 import 'package:poke_app/src/shared/components/place_holder/place_holder_image.dart';
@@ -20,11 +19,8 @@ import '../../../../shared/components/shimmer/c_shimmer.dart';
 import '../../../pokemon_detail/presentation/routes/pokemon_detail_paths.dart';
 
 class HomePage extends StatelessWidget {
-  final HomeDependecies homeDependecies;
-
   const HomePage({
     Key? key,
-    required this.homeDependecies,
   }) : super(key: key);
 
   @override

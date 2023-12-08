@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:poke_app/src/settings/app_inject.dart';
+import 'package:poke_app/src/settings/bindings/app_bindings.dart';
 import 'package:poke_app/src/settings/app_routes.dart';
 import 'package:poke_app/src/settings/app_theme.dart';
+import 'package:poke_app/src/settings/bindings/features_bindings.dart';
 
 void main() async {
   await initOptions();
@@ -27,6 +28,7 @@ initOptions() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  AppInject.initInject();
+  AppBindings.init();
+  FeaturesBindings.instance.initAllDependecies();
   await GetIt.I.allReady();
 }
