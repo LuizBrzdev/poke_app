@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:go_router/go_router.dart';
+import 'package:poke_app/src/modules/favorites/presentation/routes/favorites_pokemons_routes.dart';
 import 'package:poke_app/src/modules/pokemon_detail/presentation/routes/pokemon_detail_routes.dart';
 import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_routes.dart';
 import '../modules/home/presentation/routes/home_routes.dart';
@@ -12,7 +13,8 @@ abstract class AppRoutes {
       ...SplashRoutes.routes,
       ...HomeRoutes.routes,
       ...PokemonDetailRoutes.routes,
-      ...SearchPokemonRoutes.routes
+      ...SearchPokemonRoutes.routes,
+      ...FavoritesPokemonsRoutes.routes,
     ],
   );
 }
