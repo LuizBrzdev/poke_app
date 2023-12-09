@@ -12,7 +12,6 @@ import '../../../../shared/components/animated/c_animated_app_bar_widget.dart';
 import '../../../../shared/components/expandable_page_view/expandable_page_view.dart';
 import '../../../../shared/components/place_holder/place_holder_image.dart';
 import '../../../home/domain/entities/pokemon_info_entity.dart';
-import '../../../../settings/bindings/features/pokemon_detail_bindings.dart';
 import '../widgets/c_pokemon_detail_abilities.dart';
 import '../widgets/c_pokemon_detail_info.dart';
 import '../widgets/c_pokemon_detail_stats.dart';
@@ -20,12 +19,10 @@ import '../widgets/c_pomeon_detail_moves.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   final PokemonInfoEntity pokemonInfoModel;
-  final PokemonDetailBindings pokemonDetailBindings;
 
   const PokemonDetailPage({
     Key? key,
     required this.pokemonInfoModel,
-    required this.pokemonDetailBindings,
   }) : super(key: key);
 
   @override

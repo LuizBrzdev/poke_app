@@ -117,7 +117,7 @@ class HomePage extends StatelessWidget {
                                   children: [
                                     Center(
                                       child: CachedNetworkImage(
-                                        height: MediaQuery.of(context).size.height * 0.15,
+                                        height: MediaQuery.of(context).size.height * 0.14,
                                         fit: BoxFit.cover,
                                         imageUrl: state.listOfPokemons[index].sprites!.other
                                             .officialartwork.frontDefault,

@@ -2,6 +2,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/src/modules/pokemon_detail/presentation/routes/pokemon_detail_routes.dart';
+import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_routes.dart';
 import '../modules/home/presentation/routes/home_routes.dart';
 import '../modules/splash/presentation/routes/splash_routes.dart';
 
@@ -11,6 +12,7 @@ abstract class AppRoutes {
       ...SplashRoutes.routes,
       ...HomeRoutes.routes,
       ...PokemonDetailRoutes.routes,
+      ...SearchPokemonRoutes.routes
     ],
   );
 }
