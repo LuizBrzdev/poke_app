@@ -52,8 +52,10 @@ class _CAnimatedAppBarState extends State<CAnimatedAppBar> {
 
   Future<void> _showAppBarOnlyAfter1Second() async {
     await Future.delayed(const Duration(seconds: 1));
-    setState(() {
-      visibleAppBar = true;
-    });
+    if (mounted) {
+      setState(() {
+        visibleAppBar = true;
+      });
+    }
   }
 }

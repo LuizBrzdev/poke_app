@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poke_app/src/shared/components/bottom_navigation_bar/c_bottom_navigation_bar.dart';
 
 import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 import 'package:poke_app/src/core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
@@ -28,8 +29,9 @@ class HomePage extends StatelessWidget {
     final cubit = GetIt.instance<HomeCubit>();
     final ScrollController scrollController = ScrollController();
 
-    return Material(
-      child: Stack(
+    return Scaffold(
+      extendBody: true,
+      body: Stack(
         children: [
           SingleChildScrollView(
             controller: scrollController,
@@ -186,15 +188,21 @@ class HomePage extends StatelessWidget {
             ),
           ),
           CAnimatedAppBarWidget(
+            enableSafeArea: false,
             scrollController: scrollController,
             children: const [
               Icon(PhosphorIcons.magnifying_glass_bold, size: 18),
               SizedBox(width: 12),
-              Flexible(child: Text('Nome ou numero do seu Pokémon favorito...'))
+              Flexible(
+                child: Text(
+                  'Nome ou numero do seu Pokémon favorito...',
+                ),
+              )
             ],
           )
         ],
       ),
+      bottomNavigationBar: const CBottomNavigationBar(currentIndex: 0),
     );
   }
 }

@@ -7,12 +7,14 @@ class CAnimatedAppBarWidget extends StatefulWidget {
   final ScrollController scrollController;
   final List<Widget>? children;
   final double targetNumberToAnimate;
+  final bool enableSafeArea;
 
   const CAnimatedAppBarWidget({
     Key? key,
     required this.scrollController,
     this.children,
     this.targetNumberToAnimate = 160,
+    this.enableSafeArea = true,
   }) : super(key: key);
 
   @override
@@ -33,14 +35,14 @@ class _CAnimatedAppBarWidget extends State<CAnimatedAppBarWidget>
 
   @override
   void initState() {
-    super.initState();
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
     _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -53,8 +55,10 @@ class _CAnimatedAppBarWidget extends State<CAnimatedAppBarWidget>
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
           child: Container(
-            color: Colors.transparent,
+            margin: EdgeInsets.only(top: widget.enableSafeArea ? 0 : 30),
             child: SafeArea(
+              top: widget.enableSafeArea,
+              bottom: widget.enableSafeArea,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 child: Row(
