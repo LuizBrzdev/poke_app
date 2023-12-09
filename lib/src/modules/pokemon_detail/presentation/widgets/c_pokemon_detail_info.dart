@@ -12,7 +12,7 @@ class CPokemonDetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8, left: 26, right: 26),
       child: Wrap(
         spacing: 8,
         runSpacing: 4,

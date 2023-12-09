@@ -12,13 +12,14 @@ class CPomeonDetailMoves extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: 68,
         crossAxisCount: 3,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
         childAspectRatio: 16 / 9,
       ),
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8, left: 26, right: 26),
       itemCount: pokemonInfoModel.moves!.length,
       shrinkWrap: true,
       itemBuilder: (context, index) => Container(

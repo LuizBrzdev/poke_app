@@ -11,6 +11,7 @@ class CPokemonDetailForms extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: 68,
         crossAxisCount: 3,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
@@ -19,7 +20,7 @@ class CPokemonDetailForms extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: pokemonInfoModel.abilities!.length,
       shrinkWrap: true,
-      padding: const EdgeInsets.only(top: 8),
+      padding: const EdgeInsets.only(top: 8, left: 26, right: 26),
       itemBuilder: (context, index) => Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),

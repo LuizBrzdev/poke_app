@@ -39,52 +39,62 @@ class PokemonDetailPage extends StatelessWidget {
         children: [
           SingleChildScrollView(
             controller: scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 26),
             child: Column(
               children: [
                 SafeArea(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CNavigationButton(color: Colors.black, onTap: () => context.pop()),
-                      const Spacer(),
-                      Column(
-                        children: [
-                          Text(
-                            pokemonInfoModel.name!,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 26),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CNavigationButton(
+                          color: Colors.black,
+                          onTap: () => context.pop(),
+                        ),
+                        const Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              pokemonInfoModel.name!,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            pokemonInfoModel.id.toString().padLeft(3, '0'),
-                            style: const TextStyle(
-                              fontSize: 14,
+                            const SizedBox(height: 2),
+                            Text(
+                              pokemonInfoModel.id.toString().padLeft(3, '0'),
+                              style: const TextStyle(
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                    ],
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: ColorByPokemonType.backGroundColor(
-                        type: pokemonInfoModel.types![0].type.name),
-                  ),
-                  child: Hero(
-                    tag: pokemonInfoModel.name.toString(),
-                    child: Center(
-                      child: CachedNetworkImage(
-                        height: MediaQuery.of(context).size.height * 0.25,
-                        imageUrl: pokemonInfoModel.sprites!.other.officialartwork.frontDefault,
-                        errorWidget: (context, url, error) => const PlaceHolderImage(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 26),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: ColorByPokemonType.backGroundColor(
+                          type: pokemonInfoModel.types![0].type.name),
+                    ),
+                    child: Hero(
+                      tag: pokemonInfoModel.name.toString(),
+                      child: Center(
+                        child: CachedNetworkImage(
+                          height: MediaQuery.of(context).size.height * 0.25,
+                          imageUrl: pokemonInfoModel.sprites!.other.officialartwork.frontDefault,
+                          errorWidget: (context, url, error) => const PlaceHolderImage(),
+                        ),
                       ),
                     ),
                   ),
@@ -109,7 +119,7 @@ class PokemonDetailPage extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!
-                        .copyWith(fontWeight: FontWeight.bold),
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
               )
@@ -137,6 +147,8 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
     with SingleTickerProviderStateMixin {
   late final TabController tabController;
   late final PageController pageController;
+  final Duration animatedOpacityDuration = const Duration(milliseconds: 500);
+  double opacity = 1;
 
   @override
   void initState() {
@@ -153,6 +165,14 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
   void dispose() {
     tabController.dispose();
     super.dispose();
+  }
+
+  double setOpacityAfterAnimation(int pageIndex) {
+    setState(() {
+      pageIndex == tabController.index ? opacity = 1 : opacity = 0;
+    });
+
+    return opacity;
   }
 
   @override
@@ -174,9 +194,10 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
           onTap: (value) {
             pageController.animateToPage(
               value,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(seconds: 1),
               curve: Curves.easeInOut,
             );
+            setOpacityAfterAnimation(value);
           },
           overlayColor: MaterialStateColor.resolveWith(
             (states) => ColorByPokemonType.backGroundColor(
@@ -193,10 +214,28 @@ class _PokemonDetailTabBarState extends State<PokemonDetailTabBar>
         ExpandablePageView(
           controller: pageController,
           children: [
-            CPokemonDetailInfo(pokemonInfoModel: widget.pokemonInfoModel),
-            CPomeonDetailMoves(pokemonInfoModel: widget.pokemonInfoModel),
-            CPokemonDetailStats(pokemonInfoModel: widget.pokemonInfoModel),
-            CPokemonDetailForms(pokemonInfoModel: widget.pokemonInfoModel)
+            AnimatedOpacity(
+              opacity: setOpacityAfterAnimation(0),
+              duration: animatedOpacityDuration,
+              child: CPokemonDetailInfo(
+                pokemonInfoModel: widget.pokemonInfoModel,
+              ),
+            ),
+            AnimatedOpacity(
+              opacity: setOpacityAfterAnimation(1),
+              duration: animatedOpacityDuration,
+              child: CPomeonDetailMoves(pokemonInfoModel: widget.pokemonInfoModel),
+            ),
+            AnimatedOpacity(
+              opacity: setOpacityAfterAnimation(2),
+              duration: animatedOpacityDuration,
+              child: CPokemonDetailStats(pokemonInfoModel: widget.pokemonInfoModel),
+            ),
+            AnimatedOpacity(
+              opacity: setOpacityAfterAnimation(3),
+              duration: animatedOpacityDuration,
+              child: CPokemonDetailForms(pokemonInfoModel: widget.pokemonInfoModel),
+            )
           ],
         ),
       ],
