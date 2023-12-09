@@ -1,5 +1,5 @@
-import 'package:poke_app/src/settings/bindings/features/home_bindings.dart';
-import 'package:poke_app/src/settings/bindings/features/pokemon_detail_bindings.dart';
+import 'package:poke_app/src/modules/home/data/bindings/home_bindings.dart';
+import 'package:poke_app/src/modules/pokemon_detail/data/bindings/pokemon_detail_bindings.dart';
 
 class FeaturesBindings {
   static FeaturesBindings? _instance;

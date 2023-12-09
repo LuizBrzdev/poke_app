@@ -3,8 +3,8 @@ import 'package:poke_app/src/modules/home/data/datasource/home_data_source.dart'
 import 'package:poke_app/src/modules/home/domain/usecases/fetch_pokemon_use_case.dart';
 import 'package:poke_app/src/modules/home/presentation/cubit/home_cubit.dart';
 
-import '../../../modules/home/data/repository/home_repository_imp.dart';
-import '../../../modules/home/domain/repository/home_repository.dart';
+import '../repository/home_repository_imp.dart';
+import '../../domain/repository/home_repository.dart';
 
 class HomeBindings {
   static void init() {
