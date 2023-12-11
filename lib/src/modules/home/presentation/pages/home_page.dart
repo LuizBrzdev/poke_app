@@ -88,13 +88,10 @@ class HomePage extends StatelessWidget {
                           crossAxisSpacing: 10,
                         ),
                         itemBuilder: (context, index) => InkWell(
-                          onTap: () {
-                            //  print(state.listOfPokemons[index]);
-                            context.pushNamed(
-                              PokemonDetailPaths.POKEMON_DETAIL_PAGE,
-                              extra: state.listOfPokemons[index],
-                            );
-                          },
+                          onTap: () => context.pushNamed(
+                            PokemonDetailPaths.POKEMON_DETAIL_PAGE,
+                            extra: state.listOfPokemons[index],
+                          ),
                           child: Material(
                             child: Hero(
                               tag: state.listOfPokemons[index].name.toString(),
@@ -148,7 +145,6 @@ class HomePage extends StatelessWidget {
                     }
                   },
                 ),
-                const SizedBox(height: 25),
                 BlocBuilder<HomeCubit, HomeState>(
                   bloc: cubit,
                   builder: (context, state) {

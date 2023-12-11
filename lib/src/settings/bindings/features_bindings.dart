@@ -1,3 +1,4 @@
+import 'package:poke_app/src/modules/favorites/data/bindings/favorites_pokemons_bindings.dart';
 import 'package:poke_app/src/modules/home/data/bindings/home_bindings.dart';
 import 'package:poke_app/src/modules/pokemon_detail/data/bindings/pokemon_detail_bindings.dart';
 
@@ -10,5 +11,6 @@ class FeaturesBindings {
   void initAllDependecies() {
     HomeBindings.init();
     PokemonDetailBindings.init();
+    FavoritesPokemonsBindings.init();
   }
 }

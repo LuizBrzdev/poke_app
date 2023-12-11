@@ -2,9 +2,13 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:poke_app/src/shared/components/buttons/c_navigation_button.dart';
+import 'package:poke_app/src/shared/components/shimmer/c_shimmer.dart';
 
 import '../../../../shared/utils/HexToColor/color_by_string.dart';
 import '../../../../core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
@@ -12,6 +16,7 @@ import '../../../../shared/components/animated/c_animated_app_bar_widget.dart';
 import '../../../../shared/components/expandable_page_view/expandable_page_view.dart';
 import '../../../../shared/components/place_holder/place_holder_image.dart';
 import '../../../home/domain/entities/pokemon_info_entity.dart';
+import '../cubits/cubit/pokemon_detail_cubit.dart';
 import '../widgets/c_pokemon_detail_abilities.dart';
 import '../widgets/c_pokemon_detail_info.dart';
 import '../widgets/c_pokemon_detail_stats.dart';
@@ -28,7 +33,8 @@ class PokemonDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    // final PokemonDetailCubit cubit = GetIt.I<PokemonDetailCubit>();
+    final PokemonDetailCubit cubit = GetIt.I<PokemonDetailCubit>()
+      ..verifyPokemonIsFavorite(pokemonInfoModel);
 
     return Material(
       color: HexToColor.toColor('#EDEDED'),
@@ -36,72 +42,163 @@ class PokemonDetailPage extends StatelessWidget {
         children: [
           SingleChildScrollView(
             controller: scrollController,
-            child: Column(
-              children: [
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 26),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CNavigationButton(
-                          color: Colors.black,
-                          onTap: () => context.pop(),
-                        ),
-                        const Spacer(),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+            child: BlocBuilder<PokemonDetailCubit, PokemonDetailState>(
+              bloc: cubit,
+              builder: (context, state) {
+                switch (state) {
+                  case PokemonDetailLoading():
+                    return SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 26),
+                        child: Column(
                           children: [
-                            Text(
-                              pokemonInfoModel.name!,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                            CShimmer(
+                              height: MediaQuery.of(context).size.height * 0.4,
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              height: 20,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: List.generate(
+                                    4,
+                                    (index) => const Padding(
+                                      padding: EdgeInsets.only(right: 8),
+                                      child: CShimmer(
+                                        height: 20,
+                                        width: 100,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 2),
-                            Text(
-                              pokemonInfoModel.id.toString().padLeft(3, '0'),
-                              style: const TextStyle(
-                                fontSize: 14,
+                            const SizedBox(height: 20),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: 12,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                mainAxisExtent: 68,
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                                childAspectRatio: 16 / 9,
+                              ),
+                              itemBuilder: (context, index) => const CShimmer(
+                                height: 20,
+                                width: 100,
                               ),
                             ),
                           ],
                         ),
-                        const Spacer(),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: ColorByPokemonType.backGroundColor(
-                          type: pokemonInfoModel.types![0].type.name),
-                    ),
-                    child: Hero(
-                      tag: pokemonInfoModel.name.toString(),
-                      child: Center(
-                        child: CachedNetworkImage(
-                          height: MediaQuery.of(context).size.height * 0.25,
-                          imageUrl: pokemonInfoModel.sprites!.other.officialartwork.frontDefault,
-                          errorWidget: (context, url, error) => const PlaceHolderImage(),
-                        ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                PokemonDetailTabBar(
-                  pokemonInfoModel: pokemonInfoModel,
-                ),
-                const SizedBox(height: 40),
-              ],
+                    );
+                  case PokemonDetailSucess():
+                    return Column(
+                      children: [
+                        SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 26),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CNavigationButton(
+                                  color: Colors.black,
+                                  onTap: () => context.pop(),
+                                ),
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      pokemonInfoModel.name!,
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      pokemonInfoModel.id.toString().padLeft(3, '0'),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 26),
+                          child: Stack(
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height * 0.4,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: ColorByPokemonType.backGroundColor(
+                                      type: pokemonInfoModel.types![0].type.name),
+                                ),
+                                child: Hero(
+                                  tag: pokemonInfoModel.name.toString(),
+                                  child: Center(
+                                    child: CachedNetworkImage(
+                                      height: MediaQuery.of(context).size.height * 0.25,
+                                      imageUrl: pokemonInfoModel
+                                          .sprites!.other.officialartwork.frontDefault,
+                                      errorWidget: (context, url, error) =>
+                                          const PlaceHolderImage(),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                right: 10,
+                                top: 5,
+                                child: InkWell(
+                                  onTap: () => !cubit.isFavorite
+                                      ? cubit.saveFavoritePokemon(pokemonInfoModel)
+                                      : cubit.removeFromFavoriteList(pokemonInfoModel),
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.white.withOpacity(0.2),
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(milliseconds: 400),
+                                      child: !cubit.isFavorite
+                                          ? Icon(
+                                              PhosphorIcons.heart,
+                                              key: UniqueKey(),
+                                              color: Colors.black,
+                                            )
+                                          : Icon(
+                                              PhosphorIcons.heart_fill,
+                                              key: UniqueKey(),
+                                              color: Colors.red,
+                                            ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        PokemonDetailTabBar(
+                          pokemonInfoModel: pokemonInfoModel,
+                        ),
+                        const SizedBox(height: 40),
+                      ],
+                    );
+                  default:
+                    return Container();
+                }
+              },
             ),
           ),
           CAnimatedAppBarWidget(

@@ -5,6 +5,6 @@ import '../../presentation/cubits/cubit/pokemon_detail_cubit.dart';
 class PokemonDetailBindings {
   static void init() {
     GetIt getIt = GetIt.instance;
-    getIt.registerLazySingleton<PokemonDetailCubit>(() => PokemonDetailCubit());
+    getIt.registerLazySingleton<PokemonDetailCubit>(() => PokemonDetailCubit(getIt()));
   }
 }
