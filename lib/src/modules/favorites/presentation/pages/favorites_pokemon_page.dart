@@ -23,6 +23,7 @@ class FavoritesPokemonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
     final cubit = GetIt.I<FavoritesPokemonsCubit>()..fetchFavoritesPokemon();
+    final TextEditingController textEditingController = TextEditingController();
 
     return Scaffold(
       extendBody: true,
@@ -60,7 +61,13 @@ class FavoritesPokemonPage extends StatelessWidget {
                       color: HexToColor.toColor('#404040')),
                 ),
                 const SizedBox(height: 20),
-                const CSearchForm(),
+                CSearchForm(
+                  title: 'Nome ou Numero do seu Pokémon favorito...',
+                  controller: textEditingController,
+                  onChanged: (value) {
+                    cubit.filterPokemons(value);
+                  },
+                ),
                 BlocBuilder<FavoritesPokemonsCubit, FavoritesPokemonsState>(
                   bloc: cubit,
                   builder: (context, state) {
@@ -93,11 +100,12 @@ class FavoritesPokemonPage extends StatelessWidget {
                           crossAxisSpacing: 10,
                         ),
                         itemBuilder: (context, index) => InkWell(
-                          onTap: () {
-                            context.pushNamed(
+                          onTap: () async {
+                            await context.pushNamed(
                               PokemonDetailPaths.POKEMON_DETAIL_PAGE,
                               extra: state.listOfFavoritesPokemons[index],
                             );
+                            textEditingController.clear();
                           },
                           child: Material(
                             child: Hero(

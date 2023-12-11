@@ -4,7 +4,13 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import '../../../../shared/utils/HexToColor/color_by_string.dart';
 
 class CSearchForm extends StatelessWidget {
-  const CSearchForm({super.key});
+  final String title;
+  final bool enabled;
+  final void Function(String)? onChanged;
+  final TextEditingController? controller;
+
+  const CSearchForm(
+      {super.key, required this.title, this.enabled = true, this.onChanged, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +36,21 @@ class CSearchForm extends StatelessWidget {
           children: [
             const Icon(PhosphorIcons.magnifying_glass_bold, size: 20),
             const SizedBox(width: 12),
-            Flexible(
-              child: Text(
-                'Nome ou Numero do seu Pokémon favorito...',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+            Expanded(
+                child: TextField(
+              enabled: enabled,
+              controller: controller,
+              onChanged: onChanged,
+              decoration: InputDecoration.collapsed(
+                hintText: title,
+                hintStyle: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w300,
                   overflow: TextOverflow.ellipsis,
                   color: HexToColor.toColor('#404040'),
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),

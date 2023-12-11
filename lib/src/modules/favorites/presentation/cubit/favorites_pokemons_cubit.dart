@@ -9,11 +9,28 @@ part 'favorites_pokemons_state.dart';
 class FavoritesPokemonsCubit extends Cubit<FavoritesPokemonsState> {
   FavoritesPokemonsCubit(this._storage) : super(FavoritesPokemonLoading());
 
+  List<PokemonInfoEntity> _pokemonList = [];
+
   final StorageInterface _storage;
 
   Future<void> fetchFavoritesPokemon() async {
     emit(FavoritesPokemonLoading());
-    List<PokemonInfoEntity> pokemonList = await _storage.fetchDecodedFavoritesPokemon() ?? [];
+    _pokemonList = await _storage.fetchDecodedFavoritesPokemon() ?? [];
+    getPokemonList(_pokemonList);
+  }
+
+  void filterPokemons(String value) {
+    List<PokemonInfoEntity> filterList = _pokemonList
+        .where((element) =>
+            element.name!.contains(value.toLowerCase()) ||
+            element.id.toString().padLeft(3, '0').contains(value))
+        .toList();
+
+    getPokemonList(filterList);
+  }
+
+  void getPokemonList(List<PokemonInfoEntity> pokemonList) {
+    emit(FavoritesPokemonLoading());
     if (pokemonList.isEmpty) {
       emit(FavoritesPokemonEmpty());
     } else {

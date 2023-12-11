@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_paths.dart';
 import 'package:poke_app/src/shared/components/bottom_navigation_bar/c_bottom_navigation_bar.dart';
 
 import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
@@ -56,7 +57,13 @@ class HomePage extends StatelessWidget {
                       color: HexToColor.toColor('#404040')),
                 ),
                 const SizedBox(height: 20),
-                const CSearchForm(),
+                InkWell(
+                  onTap: () => context.replaceNamed(SearchPokemonPaths.SEARCH_POKEMON_PAGE),
+                  child: const CSearchForm(
+                    enabled: false,
+                    title: 'Nome ou Numero do seu Pokémon...',
+                  ),
+                ),
                 BlocBuilder<HomeCubit, HomeState>(
                   bloc: cubit,
                   builder: (context, state) {
@@ -191,7 +198,7 @@ class HomePage extends StatelessWidget {
               SizedBox(width: 12),
               Flexible(
                 child: Text(
-                  'Nome ou numero do seu Pokémon favorito...',
+                  'Nome ou numero do seu Pokémon...',
                 ),
               )
             ],
