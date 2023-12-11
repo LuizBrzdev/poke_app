@@ -11,9 +11,11 @@ class HomeCubit extends Cubit<HomeState> {
 
   PokemonBasicEntity _pokemonBasicEntity = PokemonBasicEntity();
 
-  HomeCubit(this._fetchPokemonUseCase) : super(HomeState());
+  HomeCubit(this._fetchPokemonUseCase) : super(HomeState()) {
+    fetchPokemonsInInitState();
+  }
 
-  Future<void> fetchPokemons() async {
+  Future<void> fetchPokemonsInInitState() async {
     await fetchPokemonsList();
     await fetchPokemonInfo();
   }
@@ -51,13 +53,13 @@ class HomeCubit extends Cubit<HomeState> {
       final pokemonInfo = await _fetchPokemonUseCase.fetchPokemonInfo(pokemonName: pokemon.name!);
       if (pokemonInfo.runtimeType == PokemonInfoEntity) {
         mutableList.add(pokemonInfo!);
-        emit(
-          state.copyWith(
-            listOfPokemons: mutableList,
-            homeStatesStatus: HomeStatesStatus.sucess,
-          ),
-        );
       }
     }
+    emit(
+      state.copyWith(
+        listOfPokemons: mutableList,
+        homeStatesStatus: HomeStatesStatus.sucess,
+      ),
+    );
   }
 }
