@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poke_app/src/modules/favorites/presentation/cubit/favorites_pokemons_cubit.dart';
 
 import 'package:poke_app/src/shared/components/buttons/c_navigation_button.dart';
 import 'package:poke_app/src/shared/components/shimmer/c_shimmer.dart';
@@ -107,7 +108,10 @@ class PokemonDetailPage extends StatelessWidget {
                               children: [
                                 CNavigationButton(
                                   color: Colors.black,
-                                  onTap: () => context.pop(),
+                                  onTap: () {
+                                    context.pop();
+                                    GetIt.I<FavoritesPokemonsCubit>().fetchFavoritesPokemon();
+                                  },
                                 ),
                                 const Spacer(),
                                 Column(

@@ -22,9 +22,7 @@ class FavoritesPokemonPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    final cubit = GetIt.I<FavoritesPokemonsCubit>();
-
-    cubit.fetchFavoritesPokemon();
+    final cubit = GetIt.I<FavoritesPokemonsCubit>()..fetchFavoritesPokemon();
 
     return Scaffold(
       extendBody: true,
@@ -144,6 +142,23 @@ class FavoritesPokemonPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                      );
+                    }
+
+                    if (state is FavoritesPokemonEmpty) {
+                      return const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 80),
+                          Center(
+                            child: Text(
+                              'Ooops...Parece que você não possui nenhum Pokemon favorito',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                            ),
+                          ),
+                        ],
                       );
                     }
                     return Container();

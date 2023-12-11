@@ -7,6 +7,8 @@ final class FavoritesPokemonsInitial extends FavoritesPokemonsState {}
 
 final class FavoritesPokemonLoading extends FavoritesPokemonsState {}
 
+final class FavoritesPokemonEmpty extends FavoritesPokemonsState {}
+
 final class FavoritesPokemonSucess extends FavoritesPokemonsState {
   final List<PokemonInfoEntity> listOfFavoritesPokemons;
 
