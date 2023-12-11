@@ -35,12 +35,21 @@ class FavoritesPokemonPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 60),
-                Text(
-                  'Favoritos',
-                  style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                      color: HexToColor.toColor('#404040')),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Favoritos',
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                          color: HexToColor.toColor('#404040')),
+                    ),
+                    const Icon(
+                      PhosphorIcons.heart_fill,
+                      color: Colors.red,
+                    )
+                  ],
                 ),
                 const SizedBox(height: 8),
                 Text(

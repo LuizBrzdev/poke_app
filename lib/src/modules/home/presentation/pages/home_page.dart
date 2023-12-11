@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = GetIt.instance<HomeCubit>();
+    final cubit = GetIt.instance<HomeCubit>()..fetchPokemons();
     final ScrollController scrollController = ScrollController();
 
     return Scaffold(

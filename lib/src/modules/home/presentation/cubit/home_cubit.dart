@@ -11,11 +11,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   PokemonBasicEntity _pokemonBasicEntity = PokemonBasicEntity();
 
-  HomeCubit(this._fetchPokemonUseCase) : super(HomeState()) {
-    initState();
-  }
+  HomeCubit(this._fetchPokemonUseCase) : super(HomeState());
 
-  Future<void> initState() async {
+  Future<void> fetchPokemons() async {
     await fetchPokemonsList();
     await fetchPokemonInfo();
   }

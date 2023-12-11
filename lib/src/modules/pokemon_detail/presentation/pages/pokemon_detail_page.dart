@@ -175,14 +175,14 @@ class PokemonDetailPage extends StatelessWidget {
                                     child: AnimatedSwitcher(
                                       duration: const Duration(milliseconds: 400),
                                       child: !cubit.isFavorite
-                                          ? Icon(
+                                          ? const Icon(
                                               PhosphorIcons.heart,
-                                              key: UniqueKey(),
+                                              key: Key('heartNotFill'),
                                               color: Colors.black,
                                             )
-                                          : Icon(
+                                          : const Icon(
                                               PhosphorIcons.heart_fill,
-                                              key: UniqueKey(),
+                                              key: Key('heartFill'),
                                               color: Colors.red,
                                             ),
                                     ),

@@ -8,7 +8,7 @@ class HomeState {
   final PokemonBasicEntity? pokemonBasicEntity;
 
   HomeState({
-    this.homeStatesStatus = HomeStatesStatus.initial,
+    this.homeStatesStatus = HomeStatesStatus.loading,
     this.listOfPokemons = const [],
     this.pokemonBasicEntity,
   });
