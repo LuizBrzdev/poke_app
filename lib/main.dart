@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:poke_app/src/core/services/storage/data/storage.dart';
+import 'package:poke_app/src/core/services/storage/data/storage_imp.dart';
 
 import 'package:poke_app/src/settings/bindings/app_bindings.dart';
 import 'package:poke_app/src/settings/app_routes.dart';
@@ -29,7 +29,7 @@ initOptions() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent, statusBarIconBrightness: Brightness.dark));
-  await Storage.instance.initSharedPreferences();
+  await StorageImp.instance.init();
   AppBindings.init();
   FeaturesBindings.instance.initAllDependecies();
   await GetIt.I.allReady();

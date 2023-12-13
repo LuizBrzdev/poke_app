@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:poke_app/src/core/services/storage/domain/storage_interface.dart';
+import 'package:poke_app/src/core/services/storage/domain/storage.dart';
 
 import '../../../home/domain/entities/pokemon_info_entity.dart';
 
@@ -11,7 +11,7 @@ class FavoritesPokemonsCubit extends Cubit<FavoritesPokemonsState> {
 
   List<PokemonInfoEntity> _pokemonList = [];
 
-  final StorageInterface _storage;
+  final Storage _storage;
 
   Future<void> fetchFavoritesPokemon() async {
     emit(FavoritesPokemonLoading());

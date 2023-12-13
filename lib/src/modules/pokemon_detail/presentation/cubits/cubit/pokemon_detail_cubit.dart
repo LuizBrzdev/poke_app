@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:poke_app/src/core/services/storage/domain/storage_interface.dart';
+import 'package:poke_app/src/core/services/storage/domain/storage.dart';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_info_entity.dart';
 
 part '../states/pokemon_detail_state.dart';
 
 class PokemonDetailCubit extends Cubit<PokemonDetailState> {
-  final StorageInterface _storage;
+  final Storage _storage;
 
   PokemonDetailCubit(this._storage) : super(PokemonDetailInitial());
 

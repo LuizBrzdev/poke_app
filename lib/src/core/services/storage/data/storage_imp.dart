@@ -3,17 +3,18 @@ import 'dart:convert';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_info_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../domain/storage_interface.dart';
+import '../domain/storage.dart';
 
-class Storage implements StorageInterface {
-  static Storage? _instance;
+class StorageImp implements Storage {
+  static StorageImp? _instance;
   // Avoid self instance
-  Storage._();
-  static Storage get instance => _instance ??= Storage._();
+  StorageImp._();
+  static StorageImp get instance => _instance ??= StorageImp._();
 
   late SharedPreferences _prefs;
 
-  Future<void> initSharedPreferences() async {
+  @override
+  Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
