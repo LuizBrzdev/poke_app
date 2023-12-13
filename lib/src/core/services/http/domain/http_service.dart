@@ -1,14 +1,14 @@
-import 'package:dio/dio.dart';
+import './http_response.dart';
 
 abstract class HttpServiceInterface {
-  Future<Response<T>?> get<T>(
+  Future<HttpResponse<T>?> get<T>(
     String url, {
     bool checkStatusCode = true,
     bool retry = true,
     Map<String, dynamic>? queryParameters,
   });
 
-  Future<Response<T>?> post<T>(
+  Future<HttpResponse<T>?> post<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
@@ -16,21 +16,21 @@ abstract class HttpServiceInterface {
     bool retry = true,
   });
 
-  Future<Response<T>?> put<T>(
+  Future<HttpResponse<T>?> put<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
     bool retry = true,
   });
 
-  Future<Response<T>?> patch<T>(
+  Future<HttpResponse<T>?> patch<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
     bool retry = true,
   });
 
-  Future<Response<T>?> delete<T>(
+  Future<HttpResponse<T>?> delete<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,

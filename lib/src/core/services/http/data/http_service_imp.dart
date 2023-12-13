@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:poke_app/src/core/services/http/domain/http_response.dart';
 
 import 'package:poke_app/src/core/services/http/domain/http_service.dart';
 
@@ -21,58 +22,69 @@ class HttpServiceImp implements HttpServiceInterface {
   }
 
   @override
-  Future<Response<T>?> get<T>(String url,
-          {bool checkStatusCode = true,
-          bool retry = true,
-          Map<String, dynamic>? queryParameters}) =>
-      dioGet(
-        url,
-        checkStatusCode: true,
-        retry: true,
-      );
+  Future<HttpResponse<T>?> get<T>(String url,
+      {bool checkStatusCode = true,
+      bool retry = true,
+      Map<String, dynamic>? queryParameters}) async {
+    final response = await dioGet(
+      url,
+      checkStatusCode: true,
+      retry: true,
+    );
+
+    return _dioResponseConverter(response!);
+  }
 
   @override
-  Future<Response<T>?> post<T>(String url, data,
-          {Map<String, dynamic>? queryParameters,
-          bool checkStatusCode = true,
-          bool retry = true}) =>
-      dioPost(
-        url,
-        data,
-        checkStatusCode: true,
-        queryParameters: queryParameters,
-        retry: true,
-      );
+  Future<HttpResponse<T>?> post<T>(String url, data,
+      {Map<String, dynamic>? queryParameters,
+      bool checkStatusCode = true,
+      bool retry = true}) async {
+    final response = await dioPost(
+      url,
+      data,
+      checkStatusCode: true,
+      queryParameters: queryParameters,
+      retry: true,
+    );
+    return _dioResponseConverter(response!);
+  }
 
   @override
-  Future<Response<T>?> patch<T>(String url, data,
-          {Map<String, dynamic>? queryParameters, bool retry = true}) =>
-      dioPatch(
-        url,
-        data,
-        queryParameters: queryParameters,
-        retry: true,
-      );
+  Future<HttpResponse<T>?> patch<T>(String url, data,
+      {Map<String, dynamic>? queryParameters, bool retry = true}) async {
+    final response = await dioPatch(
+      url,
+      data,
+      queryParameters: queryParameters,
+      retry: true,
+    );
+    return _dioResponseConverter(response!);
+  }
 
   @override
-  Future<Response<T>?> put<T>(String url, data,
-          {Map<String, dynamic>? queryParameters, bool retry = true}) =>
-      dioPut(
-        url,
-        data,
-        queryParameters: queryParameters,
-        retry: true,
-      );
+  Future<HttpResponse<T>?> put<T>(String url, data,
+      {Map<String, dynamic>? queryParameters, bool retry = true}) async {
+    final response = await dioPut(
+      url,
+      data,
+      queryParameters: queryParameters,
+      retry: true,
+    );
+    return _dioResponseConverter(response!);
+  }
 
   @override
-  Future<Response<T>?> delete<T>(String url, data,
-          {Map<String, dynamic>? queryParameters, bool retry = true}) =>
-      dioDelete(
-        url,
-        data,
-        queryParameters: queryParameters,
-        retry: true,
-      );
+  Future<HttpResponse<T>?> delete<T>(String url, data,
+      {Map<String, dynamic>? queryParameters, bool retry = true}) async {
+    final response = await dioDelete(
+      url,
+      data,
+      queryParameters: queryParameters,
+      retry: true,
+    );
+    return _dioResponseConverter(response!);
+  }
 
   ///Implementations
 
@@ -200,5 +212,10 @@ class HttpServiceImp implements HttpServiceInterface {
       return null;
     }
     return null;
+  }
+
+  HttpResponse<T> _dioResponseConverter<T>(Response response) {
+    return HttpResponse<T>(
+        statusCode: response.statusCode, data: response.data, headers: response.headers.map);
   }
 }

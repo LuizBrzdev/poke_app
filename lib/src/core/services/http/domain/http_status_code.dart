@@ -1,4 +1,3 @@
-
 const status100Continue = 100;
 const status101SwitchingProtocols = 101;
 const status102Processing = 102;
