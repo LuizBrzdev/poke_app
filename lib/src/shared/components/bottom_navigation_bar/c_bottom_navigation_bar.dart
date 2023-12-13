@@ -18,26 +18,33 @@ enum NavigationRoutes {
   final int pageIndex;
 }
 
-extension EnumExemploExtension on NavigationRoutes {
+extension GetCurrentRouteByIndex on NavigationRoutes {
   static String getRoute(int index) {
-    switch (index) {
-      case 0:
-        return NavigationRoutes.homePage.value;
-      case 1:
-        return NavigationRoutes.searchPage.value;
-      case 2:
-        return NavigationRoutes.favoritePage.value;
-      default:
-        throw ArgumentError('Índice inválido: $index');
+    for (NavigationRoutes route in NavigationRoutes.values) {
+      if (index == route.pageIndex) {
+        return route.value;
+      }
     }
+    throw ArgumentError('Índice inválido');
+  }
+}
+
+extension GetCurrentIndexByRoute on NavigationRoutes {
+  static int getPageIndex(String currentRoute) {
+    for (NavigationRoutes route in NavigationRoutes.values) {
+      if (currentRoute == route.value) {
+        return route.pageIndex;
+      }
+    }
+    throw ArgumentError('Rota inválida');
   }
 }
 
 class CBottomNavigationBar extends StatefulWidget {
-  final int currentIndex;
+  final String currentRoute;
   const CBottomNavigationBar({
     super.key,
-    required this.currentIndex,
+    required this.currentRoute,
   });
 
   @override
@@ -51,10 +58,10 @@ class _CBottomNavigationBarState extends State<CBottomNavigationBar> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
         child: BottomNavigationBar(
-          currentIndex: widget.currentIndex,
-          onTap: (value) async {
-            if (value != widget.currentIndex) {
-              context.replaceNamed(EnumExemploExtension.getRoute(value));
+          currentIndex: GetCurrentIndexByRoute.getPageIndex(widget.currentRoute),
+          onTap: (value) {
+            if (GetCurrentIndexByRoute.getPageIndex(widget.currentRoute) != value) {
+              context.replaceNamed(GetCurrentRouteByIndex.getRoute(value));
             }
           },
           backgroundColor: Colors.transparent,

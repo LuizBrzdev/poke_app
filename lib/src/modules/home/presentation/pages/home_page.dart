@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:poke_app/src/core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import 'package:poke_app/src/modules/home/presentation/cubit/home_cubit.dart';
+import 'package:poke_app/src/modules/home/presentation/routes/home_paths.dart';
 import 'package:poke_app/src/modules/home/presentation/widgets/c_search_form.dart';
 import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_paths.dart';
 import 'package:poke_app/src/shared/components/bottom_navigation_bar/c_bottom_navigation_bar.dart';
@@ -206,7 +207,7 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: const CBottomNavigationBar(currentIndex: 0),
+      bottomNavigationBar: const CBottomNavigationBar(currentRoute: HomePaths.HOME_PAGE),
     );
   }
 }

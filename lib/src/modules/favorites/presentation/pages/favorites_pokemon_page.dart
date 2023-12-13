@@ -5,6 +5,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poke_app/src/modules/favorites/presentation/cubit/favorites_pokemons_cubit.dart';
+import 'package:poke_app/src/modules/favorites/presentation/routes/favorites_pokemons_paths.dart';
 
 import '../../../../core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import '../../../../shared/components/animated/c_animated_app_bar_widget.dart';
@@ -202,7 +203,8 @@ class FavoritesPokemonPage extends StatelessWidget {
           )
         ],
       ),
-      bottomNavigationBar: const CBottomNavigationBar(currentIndex: 2),
+      bottomNavigationBar:
+          const CBottomNavigationBar(currentRoute: FavoritesPokemonsPaths.FAVORITES_POKEMONS_PAGE),
     );
   }
 }
