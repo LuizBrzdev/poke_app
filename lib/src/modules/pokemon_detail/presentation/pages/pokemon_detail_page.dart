@@ -25,17 +25,18 @@ import '../widgets/c_pomeon_detail_moves.dart';
 
 class PokemonDetailPage extends StatelessWidget {
   final PokemonInfoEntity pokemonInfoModel;
+  final PokemonDetailCubit _cubit;
 
   const PokemonDetailPage({
-    Key? key,
+    super.key,
     required this.pokemonInfoModel,
-  }) : super(key: key);
+    required PokemonDetailCubit cubit,
+  }) : _cubit = cubit;
 
   @override
   Widget build(BuildContext context) {
     final ScrollController scrollController = ScrollController();
-    final PokemonDetailCubit cubit = GetIt.I<PokemonDetailCubit>()
-      ..verifyPokemonIsFavorite(pokemonInfoModel);
+    _cubit.verifyPokemonIsFavorite(pokemonInfoModel);
 
     return Material(
       color: HexToColor.toColor('#EDEDED'),
@@ -44,7 +45,7 @@ class PokemonDetailPage extends StatelessWidget {
           SingleChildScrollView(
             controller: scrollController,
             child: BlocBuilder<PokemonDetailCubit, PokemonDetailState>(
-              bloc: cubit,
+              bloc: _cubit,
               builder: (context, state) {
                 switch (state) {
                   case PokemonDetailLoading():
@@ -167,14 +168,14 @@ class PokemonDetailPage extends StatelessWidget {
                                 right: 10,
                                 top: 5,
                                 child: InkWell(
-                                  onTap: () => !cubit.isFavorite
-                                      ? cubit.saveFavoritePokemon(pokemonInfoModel)
-                                      : cubit.removeFromFavoriteList(pokemonInfoModel),
+                                  onTap: () => !_cubit.isFavorite
+                                      ? _cubit.saveFavoritePokemon(pokemonInfoModel)
+                                      : _cubit.removeFromFavoriteList(pokemonInfoModel),
                                   child: CircleAvatar(
                                     backgroundColor: Colors.white.withOpacity(0.2),
                                     child: AnimatedSwitcher(
                                       duration: const Duration(milliseconds: 400),
-                                      child: !cubit.isFavorite
+                                      child: !_cubit.isFavorite
                                           ? const Icon(
                                               PhosphorIcons.heart,
                                               key: Key('heartNotFill'),

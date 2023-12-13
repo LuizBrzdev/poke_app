@@ -4,16 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_paths.dart';
-import 'package:poke_app/src/shared/components/bottom_navigation_bar/c_bottom_navigation_bar.dart';
 
-import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 import 'package:poke_app/src/core/helpers/colorByPokemonType/color_by_pokemon_type.dart';
 import 'package:poke_app/src/modules/home/presentation/cubit/home_cubit.dart';
 import 'package:poke_app/src/modules/home/presentation/widgets/c_search_form.dart';
+import 'package:poke_app/src/modules/search/presentation/routes/search_pokemon_paths.dart';
+import 'package:poke_app/src/shared/components/bottom_navigation_bar/c_bottom_navigation_bar.dart';
 import 'package:poke_app/src/shared/components/place_holder/place_holder_image.dart';
+import 'package:poke_app/src/shared/utils/HexToColor/color_by_string.dart';
 import 'package:poke_app/src/shared/utils/String/string_utils.dart';
 
 import '../../../../shared/components/animated/c_animated_app_bar_widget.dart';
@@ -21,13 +20,15 @@ import '../../../../shared/components/shimmer/c_shimmer.dart';
 import '../../../pokemon_detail/presentation/routes/pokemon_detail_paths.dart';
 
 class HomePage extends StatelessWidget {
+  final HomeCubit _cubit;
   const HomePage({
     Key? key,
-  }) : super(key: key);
+    required HomeCubit cubit,
+  })  : _cubit = cubit,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final cubit = GetIt.instance<HomeCubit>();
     final ScrollController scrollController = ScrollController();
 
     return Scaffold(
@@ -65,7 +66,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 BlocBuilder<HomeCubit, HomeState>(
-                  bloc: cubit,
+                  bloc: _cubit,
                   builder: (context, state) {
                     if (state.homeStatesStatus == HomeStatesStatus.loading) {
                       return GridView(
@@ -153,13 +154,13 @@ class HomePage extends StatelessWidget {
                   },
                 ),
                 BlocBuilder<HomeCubit, HomeState>(
-                  bloc: cubit,
+                  bloc: _cubit,
                   builder: (context, state) {
                     if (state.homeStatesStatus != HomeStatesStatus.loading) {
                       return InkWell(
                         onTap: () async {
-                          await cubit.fetchListOfPokemonsByUrl();
-                          cubit.fetchPokemonInfo();
+                          await _cubit.fetchListOfPokemonsByUrl();
+                          _cubit.fetchPokemonInfo();
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,

@@ -2,7 +2,7 @@ import 'package:poke_app/src/modules/home/domain/entities/pokemon_info_entity.da
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_list_entity.dart';
 import 'package:poke_app/src/modules/home/domain/repository/home_repository.dart';
 
-import '../../infra/datasource/home_data_source.dart';
+import '../../external/datasource/home_data_source.dart';
 
 class HomeRepositoryImp implements HomeRepository {
   final HomeDataSource _homeDataSource;

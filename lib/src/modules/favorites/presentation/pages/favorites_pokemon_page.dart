@@ -170,7 +170,7 @@ class FavoritesPokemonPage extends StatelessWidget {
                           SizedBox(height: 80),
                           Center(
                             child: Text(
-                              'Ooops...Parece que você não possui nenhum Pokemon favorito',
+                              'Ooops...Não encontramos nenhum Pokemon favorito',
                               textAlign: TextAlign.center,
                               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                             ),
