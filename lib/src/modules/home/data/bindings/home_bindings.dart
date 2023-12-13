@@ -15,6 +15,6 @@ class HomeBindings {
     getIt.registerLazySingleton<HomeRepository>(() => HomeRepositoryImp(getIt()));
     getIt.registerLazySingleton<FetchPokemonUseCase>(
         () => FetchPokemonUseCaseImp(homeRepository: getIt()));
-    getIt.registerLazySingleton(() => HomeCubit(getIt(), getIt(), getIt()));
+    getIt.registerLazySingleton(() => HomeCubit(getIt()));
   }
 }
