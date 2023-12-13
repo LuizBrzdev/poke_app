@@ -8,7 +8,7 @@ import 'package:poke_app/src/settings/app_const.dart';
 import 'http_interceptor_settings.dart';
 
 class HttpServiceImp implements HttpServiceInterface {
-  late Dio? _dio;
+  late Dio _dio;
 
   HttpServiceImp() {
     BaseOptions options = BaseOptions(
@@ -20,7 +20,7 @@ class HttpServiceImp implements HttpServiceInterface {
     );
 
     _dio = Dio(options);
-    _dio!.interceptors.add(AppInterceptorSettings.appInterceptors(dio: _dio!));
+    _dio.interceptors.add(AppInterceptorSettings.appInterceptors(dio: _dio));
   }
 
   @override
@@ -98,13 +98,13 @@ class HttpServiceImp implements HttpServiceInterface {
   }) async {
     try {
       if (!retry) {
-        _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
+        _dio.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response response = await _dio!.put(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio.put(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
-        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: PUT] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
+        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: ${response.requestOptions.method.toUpperCase()}] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
       );
 
       return response;
@@ -123,13 +123,13 @@ class HttpServiceImp implements HttpServiceInterface {
   }) async {
     try {
       if (!retry) {
-        _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
+        _dio.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response response = await _dio!.patch(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio.patch(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
-        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: PATCH] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
+        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: ${response.requestOptions.method.toUpperCase()}] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
       );
 
       return response;
@@ -147,11 +147,11 @@ class HttpServiceImp implements HttpServiceInterface {
   }) async {
     try {
       if (!retry) {
-        _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
+        _dio.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
-      Response response = await _dio!.delete(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio.delete(url, data: data, queryParameters: queryParameters);
       debugPrint(
-        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: DELETE] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
+        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: ${response.requestOptions.method.toUpperCase()}] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
       );
 
       return response;
@@ -169,13 +169,13 @@ class HttpServiceImp implements HttpServiceInterface {
   }) async {
     try {
       if (!retry) {
-        _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
+        _dio.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response response = await _dio!.get(url, queryParameters: queryParameters);
+      Response response = await _dio.get(url, queryParameters: queryParameters);
 
       debugPrint(
-        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: POST] :: [Header: ${response.requestOptions.headers}] :: [Body Response: ${response.data}]",
+        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: ${response.requestOptions.method.toUpperCase()}] :: [Header: ${response.requestOptions.headers}] :: [Body Response: ${response.data}]",
       );
 
       if (checkStatusCode) {
@@ -197,13 +197,13 @@ class HttpServiceImp implements HttpServiceInterface {
   }) async {
     try {
       if (!retry) {
-        _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
+        _dio.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response response = await _dio!.post(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio.post(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
-        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: POST] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
+        "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: ${response.requestOptions.method.toUpperCase()}] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
       );
 
       if (checkStatusCode) {
