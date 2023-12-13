@@ -90,7 +90,7 @@ class HttpServiceImp implements HttpServiceInterface {
 
   ///Implementations
 
-  Future<Response<T>?> dioPut<T>(
+  Future<Response?> dioPut<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
@@ -101,7 +101,7 @@ class HttpServiceImp implements HttpServiceInterface {
         _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response<T> response = await _dio!.put(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio!.put(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
         "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: PUT] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
@@ -115,7 +115,7 @@ class HttpServiceImp implements HttpServiceInterface {
     }
   }
 
-  Future<Response<T>?> dioPatch<T>(
+  Future<Response?> dioPatch<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
@@ -126,7 +126,7 @@ class HttpServiceImp implements HttpServiceInterface {
         _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response<T> response = await _dio!.patch(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio!.patch(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
         "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: PATCH] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
@@ -139,7 +139,7 @@ class HttpServiceImp implements HttpServiceInterface {
     }
   }
 
-  Future<Response<T>?> dioDelete<T>(
+  Future<Response?> dioDelete<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
@@ -149,7 +149,7 @@ class HttpServiceImp implements HttpServiceInterface {
       if (!retry) {
         _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
-      Response<T> response = await _dio!.delete(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio!.delete(url, data: data, queryParameters: queryParameters);
       debugPrint(
         "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: DELETE] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",
       );
@@ -161,7 +161,7 @@ class HttpServiceImp implements HttpServiceInterface {
     }
   }
 
-  Future<Response<T>?> dioGet<T>(
+  Future<Response?> dioGet<T>(
     String url, {
     Map<String, dynamic>? queryParameters,
     bool checkStatusCode = true,
@@ -172,7 +172,7 @@ class HttpServiceImp implements HttpServiceInterface {
         _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response<T> response = await _dio!.get(url, queryParameters: queryParameters);
+      Response response = await _dio!.get(url, queryParameters: queryParameters);
 
       debugPrint(
         "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: POST] :: [Header: ${response.requestOptions.headers}] :: [Body Response: ${response.data}]",
@@ -188,7 +188,7 @@ class HttpServiceImp implements HttpServiceInterface {
     return null;
   }
 
-  Future<Response<T>?> dioPost<T>(
+  Future<Response?> dioPost<T>(
     String url,
     dynamic data, {
     Map<String, dynamic>? queryParameters,
@@ -200,7 +200,7 @@ class HttpServiceImp implements HttpServiceInterface {
         _dio!.interceptors[0] = AppInterceptorSettings.appInterceptors(dio: _dio, reqNoRetry: url);
       }
 
-      Response<T> response = await _dio!.post(url, data: data, queryParameters: queryParameters);
+      Response response = await _dio!.post(url, data: data, queryParameters: queryParameters);
 
       debugPrint(
         "[StatusCode: ${response.statusCode}] :: [Endpoint: ${response.realUri}] :: [Method: POST] :: [Header: ${response.requestOptions.headers}] :: [Payload: $data] :: [Body Response: ${response.data}]",

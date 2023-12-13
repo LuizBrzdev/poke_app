@@ -54,15 +54,7 @@ class AppInterceptors extends Interceptor {
 
   @override
   onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (response.statusCode! >= 500) {
-      // Get.offAll(
-      //   () => CScreenInformation(
-      //     subject: 'Ocorreu um erro inesperado',
-      //     description: 'Por favor, tente novamente mais tarde.',
-      //     onTap: () {},
-      //   ),
-      // );
-    }
+    if (response.statusCode! >= 500) {}
 
     return super.onResponse(response, handler);
   }
@@ -71,13 +63,6 @@ class AppInterceptors extends Interceptor {
   onError(DioError err, ErrorInterceptorHandler handler) async {
     if (!retryMethods.contains(err.requestOptions.method) ||
         reqNoRetry == err.requestOptions.path) {
-      // Get.offAll(
-      //   () => CScreenInformation(
-      //     subject: 'Ocorreu um erro inesperado',
-      //     description: 'Por favor, tente novamente mais tarde.',
-      //     onTap: () {},
-      //   ),
-      // );
       return super.onError(err, handler);
     }
 
@@ -85,13 +70,6 @@ class AppInterceptors extends Interceptor {
     final shouldRetry = attempt <= retries && await _shouldRetry(err, attempt);
 
     if (!shouldRetry) {
-      // Get.offAll(
-      //   () => CScreenInformation(
-      //     subject: 'Ocorreu um erro inesperado',
-      //     description: 'Por favor, tente novamente mais tarde.',
-      //     onTap: () {},
-      //   ),
-      // );
       return super.onError(err, handler);
     }
 
@@ -103,12 +81,6 @@ class AppInterceptors extends Interceptor {
     try {
       await dio.fetch<void>(err.requestOptions).then((value) => handler.resolve(value));
     } on DioError catch (e) {
-      // Get.offAll(
-      //   () => CScreenInformation(
-      //       subject: 'Ocorreu um erro inesperado',
-      //       description: 'Por favor, tente novamente mais tarde.',
-      //       onTap: () {}),
-      // );
       return super.onError(e, handler);
     }
   }
