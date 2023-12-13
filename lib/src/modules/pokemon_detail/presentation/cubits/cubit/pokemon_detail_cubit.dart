@@ -10,7 +10,7 @@ part '../states/pokemon_detail_state.dart';
 class PokemonDetailCubit extends Cubit<PokemonDetailState> {
   final StorageInterface _storage;
 
-  PokemonDetailCubit(this._storage) : super(PokemonDetailState.initial());
+  PokemonDetailCubit(this._storage) : super(PokemonDetailInitial());
 
   bool _isFavorite = false;
   bool get isFavorite => _isFavorite;
@@ -30,6 +30,7 @@ class PokemonDetailCubit extends Cubit<PokemonDetailState> {
   Future<void> removeFromFavoriteList(PokemonInfoEntity pokemon) async {
     List<PokemonInfoEntity> decodedPokemonList =
         await _storage.fetchDecodedFavoritesPokemon() ?? [];
+
     decodedPokemonList.removeWhere((element) => element.id == pokemon.id);
 
     final List<String> encodePokemonList =
