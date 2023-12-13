@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:poke_app/src/core/services/http/domain/http_response.dart';
 
 import 'package:poke_app/src/core/services/http/domain/http_service.dart';
+import 'package:poke_app/src/settings/app_const.dart';
 
 import 'http_interceptor_settings.dart';
 
@@ -15,6 +16,7 @@ class HttpServiceImp implements HttpServiceInterface {
       receiveTimeout: const Duration(seconds: 5),
       validateStatus: (statusCode) => true,
       contentType: Headers.jsonContentType,
+      baseUrl: AppConstants.pokeApiUrl,
     );
 
     _dio = Dio(options);
