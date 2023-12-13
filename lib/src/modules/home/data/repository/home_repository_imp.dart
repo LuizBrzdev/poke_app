@@ -21,7 +21,7 @@ class HomeRepositoryImp implements HomeRepository {
   @override
   Future<PokemonInfoEntity?> fetchPokemonInfo({required String pokemonName}) async {
     final response = await _homeDataSource.fetchPokemonInfo(pokemonName: pokemonName);
-    if (response!.statusCode == 200) {
+    if (response.statusCode == 200) {
       return PokemonInfoEntity.fromJson(response.data);
     }
     return PokemonInfoEntity();
@@ -30,7 +30,7 @@ class HomeRepositoryImp implements HomeRepository {
   @override
   Future<PokemonBasicEntity?> fetchPokemonByUrl({required String url}) async {
     final response = await _homeDataSource.fetchPokemonByUrl(url: url);
-    if (response!.statusCode == 200) {
+    if (response.statusCode == 200) {
       return PokemonBasicEntity.fromJson(response.data);
     }
     return PokemonBasicEntity(count: 0, next: '', previous: '', results: []);

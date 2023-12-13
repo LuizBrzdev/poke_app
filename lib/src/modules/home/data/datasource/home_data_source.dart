@@ -1,5 +1,4 @@
 import 'package:poke_app/src/core/services/http/domain/http_service.dart';
-
 import '../../../../core/services/http/domain/http_response.dart';
 
 class HomeDataSource {
@@ -12,12 +11,12 @@ class HomeDataSource {
     return response!;
   }
 
-  Future<HttpResponse?> fetchPokemonInfo({required String pokemonName}) async {
+  Future<HttpResponse> fetchPokemonInfo({required String pokemonName}) async {
     final response = await _httpService.get('/pokemon/$pokemonName');
     return response!;
   }
 
-  Future<HttpResponse?> fetchPokemonByUrl({required String url}) async {
+  Future<HttpResponse> fetchPokemonByUrl({required String url}) async {
     final response = await _httpService.get(url);
     return response!;
   }

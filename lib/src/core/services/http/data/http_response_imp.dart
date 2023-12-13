@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:poke_app/src/core/services/http/domain/http_response.dart';
+
+import '../../domain/http_response.dart';
 
 class HttpResponseImp<T> implements HttpResponse {
   final Response<T> _response;
