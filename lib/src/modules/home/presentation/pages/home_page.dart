@@ -192,18 +192,21 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          CAnimatedAppBarWidget(
-            enableSafeArea: false,
-            scrollController: scrollController,
-            children: const [
-              Icon(PhosphorIcons.magnifying_glass_bold, size: 18),
-              SizedBox(width: 12),
-              Flexible(
-                child: Text(
-                  'Nome ou numero do seu Pokémon...',
-                ),
-              )
-            ],
+          InkWell(
+            onTap: () => context.replaceNamed(SearchPokemonPaths.SEARCH_POKEMON_PAGE),
+            child: CAnimatedAppBarWidget(
+              enableSafeArea: false,
+              scrollController: scrollController,
+              children: const [
+                Icon(PhosphorIcons.magnifying_glass_bold, size: 18),
+                SizedBox(width: 12),
+                Flexible(
+                  child: Text(
+                    'Nome ou numero do seu Pokémon...',
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),

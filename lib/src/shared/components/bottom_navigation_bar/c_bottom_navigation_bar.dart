@@ -19,7 +19,7 @@ enum NavigationRoutes {
 }
 
 extension GetCurrentRouteByIndex on NavigationRoutes {
-  static String getRoute(int index) {
+  static String getRouteName(int index) {
     for (NavigationRoutes route in NavigationRoutes.values) {
       if (index == route.pageIndex) {
         return route.value;
@@ -30,7 +30,7 @@ extension GetCurrentRouteByIndex on NavigationRoutes {
 }
 
 extension GetCurrentIndexByRoute on NavigationRoutes {
-  static int getPageIndex(String currentRoute) {
+  static int getRouteIndex(String currentRoute) {
     for (NavigationRoutes route in NavigationRoutes.values) {
       if (currentRoute == route.value) {
         return route.pageIndex;
@@ -58,16 +58,18 @@ class _CBottomNavigationBarState extends State<CBottomNavigationBar> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
         child: BottomNavigationBar(
-          currentIndex: GetCurrentIndexByRoute.getPageIndex(widget.currentRoute),
+          currentIndex: GetCurrentIndexByRoute.getRouteIndex(widget.currentRoute),
           onTap: (value) {
-            if (GetCurrentIndexByRoute.getPageIndex(widget.currentRoute) != value) {
-              context.replaceNamed(GetCurrentRouteByIndex.getRoute(value));
+            if (GetCurrentIndexByRoute.getRouteIndex(widget.currentRoute) != value) {
+              context.replaceNamed(GetCurrentRouteByIndex.getRouteName(value));
             }
           },
           backgroundColor: Colors.transparent,
           elevation: 0,
           selectedIconTheme: const IconThemeData(color: Colors.black),
           iconSize: 26,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           items: const [
             BottomNavigationBarItem(
               label: '',
