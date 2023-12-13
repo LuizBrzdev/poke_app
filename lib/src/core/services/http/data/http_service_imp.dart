@@ -7,7 +7,7 @@ import 'package:poke_app/src/settings/app_const.dart';
 
 import 'http_interceptor_settings.dart';
 
-class HttpServiceImp implements HttpServiceInterface {
+class HttpServiceImp implements HttpService {
   late Dio _dio;
 
   HttpServiceImp() {

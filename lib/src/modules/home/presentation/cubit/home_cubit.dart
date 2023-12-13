@@ -1,7 +1,10 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bloc/bloc.dart';
+
+import 'package:poke_app/src/core/commons/fetch_pokemons/domain/usecases/fetch_pokemon_basic_info_use_case.dart';
+import 'package:poke_app/src/core/commons/fetch_pokemons/domain/usecases/fetch_pokemon_detail_use_case.dart';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_info_entity.dart';
 import 'package:poke_app/src/modules/home/domain/entities/pokemon_list_entity.dart';
-
 import 'package:poke_app/src/modules/home/domain/usecases/fetch_pokemon_use_case.dart';
 
 part 'home_state.dart';
@@ -9,9 +12,16 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final FetchPokemonUseCase _fetchPokemonUseCase;
 
+  final FetchPokemonDetailUseCase _fetchPokemonDetailUseCase;
+  final FetchPokemonBasicInfoUseCase _fetchPokemonBasicInfoUseCase;
+
   PokemonBasicEntity _pokemonBasicEntity = PokemonBasicEntity();
 
-  HomeCubit(this._fetchPokemonUseCase) : super(HomeState()) {
+  HomeCubit(
+    this._fetchPokemonUseCase,
+    this._fetchPokemonDetailUseCase,
+    this._fetchPokemonBasicInfoUseCase,
+  ) : super(HomeState()) {
     fetchPokemonsInInitState();
   }
 

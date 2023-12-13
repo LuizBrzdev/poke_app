@@ -3,7 +3,7 @@ import '../../../../core/services/http/domain/http_response.dart';
 import '../../external/datasource/home_data_source.dart';
 
 class HomeDataSourceImp implements HomeDataSource {
-  final HttpServiceInterface _httpService;
+  final HttpService _httpService;
 
   HomeDataSourceImp(this._httpService);
 

@@ -8,7 +8,7 @@ import '../../core/services/http/domain/http_service.dart';
 class AppBindings {
   static init() {
     GetIt getIt = GetIt.instance;
-    getIt.registerSingleton<HttpServiceInterface>(HttpServiceImp());
+    getIt.registerSingleton<HttpService>(HttpServiceImp());
     getIt.registerSingleton<Storage>(StorageImp.instance);
   }
 }

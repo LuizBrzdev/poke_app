@@ -1,6 +1,6 @@
 import './http_response.dart';
 
-abstract class HttpServiceInterface {
+abstract class HttpService {
   Future<HttpResponse<T>?> get<T>(
     String url, {
     bool checkStatusCode = true,
