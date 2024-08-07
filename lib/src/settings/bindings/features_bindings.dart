@@ -9,7 +9,7 @@ class FeaturesBindings {
   static FeaturesBindings get instance => _instance ??= FeaturesBindings._();
 
   void initAllDependecies() {
-    HomeBindings.init();
+    // HomeBindings.init();
     PokemonDetailBindings.init();
     FavoritesPokemonsBindings.init();
   }
